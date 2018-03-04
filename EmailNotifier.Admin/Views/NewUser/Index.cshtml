@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EmailNotifier.Models.NewUser>
+@{
+    ViewBag.Title = "All Users";
+}
+
+<div class="jumbotron">
+    <h1>Email Users</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Users</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SentMail)
+                </th>
+                <th>
+                    <span>Action</span>
+                </th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SentMail)
+                        </td>
+                        <td>
+                            @if (!item.SentMail)
+                            {
+                                @Html.ActionLink("Send Email", "Email", new { email = item.Email, id = item.Id })
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            
+        </table>
+
+        <p>
+            @Html.ActionLink("Add New User", "AddNewUser")
+        </p>
+    </div>
+</div>
